@@ -1,15 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const Path = require('path');
+import express from 'express'; 
+import dotenv from 'dotenv';
+import router from './routes' 
+// config({path: 'custom/path/to/your/env/var'})
+dotenv.config();
+const localserver = express(); 
 
-const PORT = 3000;
-const app = express();
+// console.log('dotenv: ', process.env.PORT)
+localserver.use('/', router);
+const port = process.env.PORT || 8080; 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-app.listen(PORT, () => console.log(`Listening on port ${PORT}!`));
-
-module.exports = app;
+localserver.listen(port); 
+console.log(`Listening at http: //localhost: ${port}`);
+export default localserver;
